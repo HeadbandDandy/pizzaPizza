@@ -32,6 +32,20 @@ const pizzaController = {
     createPizza({body}, res) {
         Pizza.create(body).then(pizzaData => res.json(pizzaData))
         .catch(err => res.status(400).json(err));
+    },
+
+    // method below is for updating a pizza
+    //update method has to contain a matching id
+    updatePizza({params, body}, res) {
+        Pizza.findOneAndUpdate({_id: params.id}, body, {new: true})
+            .then(pizzaData => {
+                if(!pizzaData) {
+                    res.status(404).json({message: 'No pizza found with this id'})
+                    return;
+                }
+                res.json(pizzaData)
+            })
+            .catch(err => res.status(400).json(err))
     }
 }
 
