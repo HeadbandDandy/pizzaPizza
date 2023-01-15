@@ -1,4 +1,12 @@
-const router = require('express').Router();
+const router = require('express').Router()
+
+const {
+    getPizzas,
+    getSinglePizza,
+    createPizza,
+    updatePizza,
+    deletePizza
+} = require('../../controllers/pizza-controller')
 
 // set up routes for ALL methods
 router 
