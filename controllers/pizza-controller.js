@@ -26,6 +26,12 @@ const pizzaController = {
                 console.log(err);
                 res.status(400).json(err);
             })
+    },
+
+    // method below will contain POST actions
+    createPizza({body}, res) {
+        Pizza.create(body).then(pizzaData => res.json(pizzaData))
+        .catch(err => res.status(400).json(err));
     }
 }
 
