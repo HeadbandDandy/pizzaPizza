@@ -1,5 +1,4 @@
 const {Schema, model} = require('mongoose');
-const Pizza = model('Pizza', PizzaSchema)
 
 // schema below uses strings, timestamps for tracking, and an array for 
 // toppings. 
@@ -20,6 +19,9 @@ const PizzaSchema = new Schema ({
     },
     toppings: []
 })
+
+const Pizza = model('Pizza', PizzaSchema)
+
 
 
 // below is the export for the entire model
