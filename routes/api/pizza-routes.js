@@ -11,14 +11,14 @@ const {
 // set up routes for ALL methods
 router 
     .route('/')
-    .get()
-    .post()
+    .get(getPizzas)
+    .post(createPizza)
 
 // set up routes for SINGLE methods
 router 
     .route('/:id')
-    .get()
-    .put()
-    .delete()
+    .get(getSinglePizza)
+    .put(updatePizza)
+    .delete(deletePizza)
 
 module.exports = router;
