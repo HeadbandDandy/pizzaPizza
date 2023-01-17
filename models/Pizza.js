@@ -16,6 +16,9 @@ const PizzaSchema = new Schema({
       type: String,
       default: 'Large'
     },
+    comments: [{
+      type: String
+    }],
     toppings: []
   });
 
