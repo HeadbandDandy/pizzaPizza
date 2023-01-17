@@ -17,7 +17,9 @@ const PizzaSchema = new Schema({
       default: 'Large'
     },
     comments: [{
-      type: String
+      type: Schema.Types.ObjectId,
+      // ref prop allows pizza model to search for documents
+      ref: 'Comment'
     }],
     toppings: []
   });
