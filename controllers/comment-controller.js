@@ -15,7 +15,14 @@ const commentController = {
                 )
             })
             // need to format error message for above statement
-            
+            .then(pizzaData => {
+                if(!pizzaData) {
+                    res.status(404).json({message: 'no pizza has this id'})
+                    return;
+                }
+                res.json(pizzaData)
+            })
+            .catch(err => res.json(err))
     },
 
     deleteComment() {
