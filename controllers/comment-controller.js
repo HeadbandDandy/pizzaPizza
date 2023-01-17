@@ -24,7 +24,8 @@ const commentController = {
             })
             .catch(err => res.json(err))
     },
-
+// delete comment needs to return an error message
+// also needs to contain params for the ID and pull for one pizza
     deleteComment() {
 
     }
