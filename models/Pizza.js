@@ -1,7 +1,8 @@
 
 const { Schema, model } = require('mongoose');
 
-const PizzaSchema = new Schema({
+const PizzaSchema = new Schema(
+  {
     pizzaName: {
       type: String
     },
@@ -10,24 +11,27 @@ const PizzaSchema = new Schema({
     },
     createdAt: {
       type: Date,
-      default: Date.now
+      default: Date.now,
     },
     size: {
       type: String,
       default: 'Large'
     },
-    comments: [{
-      type: Schema.Types.ObjectId,
-      // ref prop allows pizza model to search for documents
-      ref: 'Comment'
-    }],
     toppings: [],
-    // need to place JSON prop in schema
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
+      }
+    ]
+  },
+  {
     toJSON: {
       virtuals: true,
     },
     id: false
-});
+  }
+);
 
 // need to place a virtual below to add information manually
 PizzaSchema.virtual('commentCount').get(function() {
