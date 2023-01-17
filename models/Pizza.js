@@ -21,8 +21,20 @@ const PizzaSchema = new Schema({
       // ref prop allows pizza model to search for documents
       ref: 'Comment'
     }],
-    toppings: []
-  });
+    toppings: [],
+    // need to place JSON prop in schema
+    toJSON: {
+      virtuals: true,
+    },
+    id: false
+});
+
+// need to place a virtual below to add information manually
+PizzaSchema.virtual('commentCount').get(function() {
+  return this.comments.length
+})
+
+
 
 // create the Pizza model using the PizzaSchema
 const Pizza = model('Pizza', PizzaSchema);
