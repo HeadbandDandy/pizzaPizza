@@ -12,11 +12,13 @@ app.use(express.static('public'));
 app.use(require('./routes'));
 
 //mongoose connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb:127.0.0.1:27017/pizza-pizza', {
-    userNewUrlParser: true,
-    useUnifiedTopology: true
-})
-
+mongoose.connect(
+    process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/pizza-pizza',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  );
 // this will log mongo queries that are executed
 mongoose.set('debug', true)
 
