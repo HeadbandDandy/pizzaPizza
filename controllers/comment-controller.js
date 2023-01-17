@@ -26,8 +26,29 @@ const commentController = {
     },
 // delete comment needs to return an error message
 // also needs to contain params for the ID and pull for one pizza
-    deleteComment() {
+    deleteComment({params}, res) {
+        Comment.findOneAndDelete({_id: params.commentId})
+            .then(deletedComment => {
+                if(!deletedComment) {
+                    return res.status(404).json({message: 'No comment with this id'})
 
+                }
+                // after it is deleted the comment needs to be updated under the Pizza
+                return Pizza.findOneAndUpdate(
+                    {_id: params.pizzaId},
+                    {$pull: {comments: params.commentId}},
+                    {new: true}
+                )
+            })
+            // convert data to JSON
+            .then(pizzaData => {
+                if(!pizzaData) {
+                    res.status(404).json({message: 'no pizza found with this id'})
+                    return 
+                }
+                res.json(pizzaData)
+            })
+            .catch(err => res.json(err))
     }
 
 }
