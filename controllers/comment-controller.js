@@ -8,8 +8,14 @@ const commentController = {
         console.log(body)
         Comment.create(body)
             .then(({_id}) => {
-                console.log(_id)
+                return Pizza.findOneAndUpdate(
+                    {_id: params.pizzaId},
+                    {$push: {comments: _id}},
+                    {new: true}
+                )
             })
+            // need to format error message for above statement
+            
     },
 
     deleteComment() {
