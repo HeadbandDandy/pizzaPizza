@@ -11,7 +11,14 @@ const pizzaController = {
                 path: 'comments',
                 select: '-__v'
             })
+            .select('-__v')
+            // sort method will remove id if necessary
+            .sort({_id: -1})
             .then(pizzaData => res.json(pizzaData))
+            .catch(err => {
+                console.log(err)
+                res.status(400).json(err)
+            })
 
     },
     // get a singular pizza 
