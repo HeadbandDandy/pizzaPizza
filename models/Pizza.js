@@ -12,6 +12,9 @@ const PizzaSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+      //below contains getter for pizza retrieval
+      //every pizza GOT will return a time and date formatting
+      get: (createdAtValue) => dateFormat(createdAtValue)
     },
     size: {
       type: String,
