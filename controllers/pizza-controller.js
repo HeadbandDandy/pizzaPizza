@@ -25,6 +25,11 @@ const pizzaController = {
     // get a singular pizza 
     getSinglePizza({params}, res) {
         Pizza.findOne({_id: params.id})
+            .populate({
+                path: 'comments',
+                select: '-__v'
+            })
+            .select('-__v')
             .then(pizzaData => {
                 if(!pizzaData) {
                     res.status(404).json({message: 'No pizza found with that id'})
