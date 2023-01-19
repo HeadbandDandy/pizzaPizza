@@ -21,6 +21,7 @@ const pizzaController = {
             })
 
     },
+    // need to use populate method in structure below
     // get a singular pizza 
     getSinglePizza({params}, res) {
         Pizza.findOne({_id: params.id})
