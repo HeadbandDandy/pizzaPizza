@@ -5,12 +5,14 @@ const pizzaController = {
     // need methods to GET ALL pizzas and a single pizza by its
     // id
     getPizzas(req, res) {
+        // method needs to be updated to populate comment field
         Pizza.find({})
-        .then(pizzaData => res.json(pizzaData))
-        .catch(err => {
-            console.log(err);
-            res.status(400).json(err)
-        })
+            .populate({
+                path: 'comments',
+                select: '-__v'
+            })
+            .then(pizzaData => res.json(pizzaData))
+
     },
     // get a singular pizza 
     getSinglePizza({params}, res) {
