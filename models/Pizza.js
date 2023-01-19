@@ -1,5 +1,5 @@
 
-const { Schema, model } = require('mongoose');
+const { Schema, model, trusted } = require('mongoose');
 const dateFormat = require('../utils/dateFormat')
 
 const PizzaSchema = new Schema(
@@ -32,6 +32,7 @@ const PizzaSchema = new Schema(
   {
     toJSON: {
       virtuals: true,
+      getters: true
     },
     id: false
   }
