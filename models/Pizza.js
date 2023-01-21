@@ -39,10 +39,10 @@ const PizzaSchema = new Schema(
 );
 
 // need to place a virtual below to add information manually
+// updated to include replies as well! reduce() calculates value based on accumulating values(comments) in array
 PizzaSchema.virtual('commentCount').get(function() {
-  return this.comments.length
-})
-
+  return this.comments.reduce((total, comment) => total + comment.replies.length + 1, 0);
+});
 
 
 // create the Pizza model using the PizzaSchema
