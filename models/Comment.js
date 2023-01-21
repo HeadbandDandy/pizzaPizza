@@ -34,7 +34,9 @@ const CommentSchema = new Schema ({
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    //association for replies and comments
+    replies: [ReplySchema]
 })
 
 const Comment = model('Comment', CommentSchema);
