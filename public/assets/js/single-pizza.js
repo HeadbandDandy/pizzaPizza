@@ -107,6 +107,27 @@ function handleNewCommentSubmit(event) {
   }
 
   const formData = { commentBody, writtenBy };
+  // in order for above to work, need to add fetch/post functionality
+  fetch('/api/comments/${pizzaId'), {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json', 'Content-Type' : 'application/json'
+    },
+    body: JSON.stringify(formData)
+  }
+  .then(response => {
+    if(!response.ok) {
+      throw new Error('Something is not correct')
+    }
+    response.json()
+  })
+  .then(commentResponse => {
+    console.log(commentResponse)
+    location.reload()
+  })
+  .catch(err => {
+    console.log(err)
+  })
 }
 
 function handleNewReplySubmit(event) {
@@ -134,3 +155,7 @@ $backBtn.addEventListener('click', function() {
 
 $newCommentForm.addEventListener('submit', handleNewCommentSubmit);
 $commentSection.addEventListener('submit', handleNewReplySubmit);
+
+
+// callback needed
+getOnePizza()
