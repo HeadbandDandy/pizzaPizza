@@ -3,24 +3,31 @@ const dateFormat = require('../utils/dateFormat');
 
 
 //initialization of reply schema 
-const ReplySchema = new Schema({
-    // unique identifier
-    replyId: {
+const ReplySchema = new Schema(
+    {
+        //unique identifier
+      replyId: {
         type: Schema.Types.ObjectId,
         default: () => new Types.ObjectId()
-    },
-    replyBody: {
+      },
+      replyBody: {
         type: String
-    },
-    writtenBy: {
+      },
+      writtenBy: {
         type: String
-    },
-    createdAt: {
-        type: Date, 
+      },
+      createdAt: {
+        type: Date,
         default: Date.now,
-        get: createdAtValue => dateFormat(createdAtValue)
+        get: createdAtVal => dateFormat(createdAtVal)
+      }
+    },
+    {
+      toJSON: {
+        getters: true
+      }
     }
-})
+  );
 
 // initilization of comment model
 const CommentSchema = new Schema ({
