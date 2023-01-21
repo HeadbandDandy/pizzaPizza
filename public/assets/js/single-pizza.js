@@ -9,6 +9,18 @@ const $newCommentForm = document.querySelector('#new-comment-form');
 
 let pizzaId;
 
+//need to implement a function that returns a single pizza
+function getOnePizza() {
+  const searchParams = new URLSearchParams(document.location.search.substring(1))
+  const pizzaId = searchParams.get('id')
+  fetch('/api/pizzas.${pizzaId}')
+    .then(response => {
+      console.log(response);
+      return response.json
+    })
+    .then(printPizza)
+}
+
 function printPizza(pizzaData) {
   console.log(pizzaData);
 
