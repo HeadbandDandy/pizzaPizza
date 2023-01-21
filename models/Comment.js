@@ -30,21 +30,31 @@ const ReplySchema = new Schema(
   );
 
 // initilization of comment model
-const CommentSchema = new Schema ({
-    author: {
+const CommentSchema = new Schema(
+    {
+      writtenBy: {
         type: String
-    },
-
-    body: {
+      },
+      commentBody: {
         type: String
-    },
-    createdAt: {
+      },
+      createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+        get: createdAtValue => dateFormat(createdAtValue)
+      },
+      // association for replySchema
+      replies: [ReplySchema]
     },
-    //association for replies and comments
-    replies: [ReplySchema]
-})
+    {
+        // getters and virtuals placed
+      toJSON: {
+        virtuals: true,
+        getters: true
+      },
+      id: false
+    }
+  );
 
 const Comment = model('Comment', CommentSchema);
 
