@@ -15,10 +15,18 @@ function getOnePizza() {
   const pizzaId = searchParams.get('id')
   fetch('/api/pizzas.${pizzaId}')
     .then(response => {
-      console.log(response);
+      if(!response.ok) {
+        throw new Error({message: 'Something is not correct'})
+      }
       return response.json
     })
     .then(printPizza)
+    .catch(err => {
+      console.log(err)
+      // will take user back to a page if ID is incorrect
+      alert('no pizza found with this id, wait one second..')
+      window.history.back()
+    })
 }
 
 function printPizza(pizzaData) {
