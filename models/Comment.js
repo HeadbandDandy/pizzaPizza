@@ -54,7 +54,15 @@ const CommentSchema = new Schema(
       },
       id: false
     }
-  );
+);
+
+//virtual for comment placed below
+
+CommentSchema.virtual('replyCount').get(function() {
+    return this.replies.length;
+  });
+
+
 
 const Comment = model('Comment', CommentSchema);
 
