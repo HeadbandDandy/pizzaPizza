@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {addComment, deleteComment} = require('../../controllers/comment-controller');
+const {addComment, deleteComment, addReply, removeReply} = require('../../controllers/comment-controller');
 const { route } = require('./pizza-routes');
 
 // need to place routes below and use import from controller above
@@ -13,7 +13,14 @@ router.route('/:pizzaId').post(addComment);
 // need to ensure that server knows which comment was deleted
 router.route('/:pizzaId/:commentId').delete(deleteComment)
 
+// route will contain PUT route to handle new replies
+router
+    .route('/pizzaId/:commentId')
+    .put(addReply)
+    .delete(deleteComment)
 
+// need route to delete replies
+router.route('/:pizzaId/commentId/:replyId').delete(removeReply)
 
 
 
