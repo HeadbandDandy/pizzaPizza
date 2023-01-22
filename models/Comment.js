@@ -14,7 +14,9 @@ const ReplySchema = new Schema(
         type: String
       },
       writtenBy: {
-        type: String
+        type: String,
+        required: true,
+        trim: true
       },
       createdAt: {
         type: Date,
@@ -36,7 +38,9 @@ const CommentSchema = new Schema(
         type: String
       },
       commentBody: {
-        type: String
+        type: String,
+        required: true,
+        trim: true
       },
       createdAt: {
         type: Date,
@@ -44,7 +48,9 @@ const CommentSchema = new Schema(
         get: createdAtValue => dateFormat(createdAtValue)
       },
       // association for replySchema
-      replies: [ReplySchema]
+      replies: [ReplySchema],
+      required: true,
+      trim: true
     },
     {
         // getters and virtuals placed
