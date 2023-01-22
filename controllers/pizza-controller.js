@@ -76,6 +76,18 @@ const pizzaController = {
         })
         .catch(err => res.status(400).json(err))
         
+    },
+    // placing an update method to add validation
+    updatePizza({params, body}, res) {
+        Pizza.findByIdAndUpdate({_id: params.id}, body, {new: true, runValidators: true})
+        .then(pizzaData => {
+            if(!pizzaData) {
+                res.status(404).json({message: 'no pizza with this id'})
+
+            }
+            res.json(pizzaData)
+        })
+        .catch(err => res.status(400).json(err))
     }
 }
 
