@@ -5,10 +5,16 @@ const dateFormat = require('../utils/dateFormat')
 const PizzaSchema = new Schema(
   {
     pizzaName: {
-      type: String
+      type: String,
+      // need validation
+      required: true,
+      trim: true
     },
     createdBy: {
-      type: String
+      type: String,
+      // add validation below (validation requires data to exist in the field)
+      required: true,
+      trim: true
     },
     createdAt: {
       type: Date,
