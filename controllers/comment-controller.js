@@ -70,10 +70,12 @@ const commentController = {
       removeReply({params}, res) {
           Comment.findOneAndUpdate(
               {_id: params.commentId},
+            //   uses MongoDb pull operator to remove specific id
               {$pull: {replies: {replyId}}},
               {new: true}
           )
           .then(pizzaData => res.json(pizzaData))
+          .catch(err => res.json(err))
       }
 
 }
