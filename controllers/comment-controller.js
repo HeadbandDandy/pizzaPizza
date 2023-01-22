@@ -57,16 +57,24 @@ const commentController = {
           { $push: { replies: body } },
           { new: true }
         )
-          .then(dbPizzaData => {
-            if (!dbPizzaData) {
+          .then(pizzaData => {
+            if (!pizzaData) {
               res.status(404).json({ message: 'No pizza found with this id!' });
               return;
             }
-            res.json(dbPizzaData);
+            res.json(pizzaData);
           })
           .catch(err => res.json(err));
       },
       // need to copy over add reply logic to removeReply()
+      removeReply({params}, res) {
+          Comment.findOneAndUpdate(
+              {_id: params.commentId},
+              {$pull: {replies: {replyId}}},
+              {new: true}
+          )
+          .then(pizzaData => res.json(pizzaData))
+      }
 
 }
 
