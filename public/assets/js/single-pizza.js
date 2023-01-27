@@ -11,22 +11,27 @@ let pizzaId;
 
 //need to implement a function that returns a single pizza
 function getOnePizza() {
-  const searchParams = new URLSearchParams(document.location.search.substring(1))
-  const pizzaId = searchParams.get('id')
-  fetch('/api/pizzas.${pizzaId}')
+  // get id of pizza
+  const searchParams = new URLSearchParams(document.location.search.substring(1));
+  const pizzaId = searchParams.get('id');
+
+  // get pizzaInfo
+  fetch(`/api/pizzas/${pizzaId}`)
     .then(response => {
-      if(!response.ok) {
-        throw new Error({message: 'Something is not correct'})
+      console.log(response);
+      if (!response.ok) {
+        console.log('hi');
+        throw new Error({ message: 'Something went wrong!' });
       }
+
       return response.json
     })
     .then(printPizza)
     .catch(err => {
-      console.log(err)
-      // will take user back to a page if ID is incorrect
-      alert('no pizza found with this id, wait one second..')
-      window.history.back()
-    })
+      console.log(err);
+      alert('Cannot find a pizza with this id! Taking you back.');
+      window.history.back();
+    });
 }
 
 function printPizza(pizzaData) {
@@ -108,13 +113,13 @@ function handleNewCommentSubmit(event) {
 
   const formData = { commentBody, writtenBy };
   // in order for above to work, need to add fetch/post functionality
-  fetch('/api/comments/${pizzaId'), {
+  fetch(`/api/comments/${pizzaId}`, {
     method: 'POST',
     headers: {
       Accept: 'application/json', 'Content-Type' : 'application/json'
     },
     body: JSON.stringify(formData)
-  }
+  })
   .then(response => {
     if(!response.ok) {
       throw new Error('Something is not correct')
@@ -123,7 +128,7 @@ function handleNewCommentSubmit(event) {
   })
   .then(commentResponse => {
     console.log(commentResponse)
-    location.reload()
+   // location.reload()
   })
   .catch(err => {
     console.log(err)

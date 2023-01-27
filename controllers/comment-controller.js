@@ -5,7 +5,7 @@ const {Comment, Pizza} = require('../models')
 const commentController = {
 
     addComment({params, body}, res) {
-        console.log(body)
+        console.log(params)
         Comment.create(body)
             .then(({_id}) => {
                 return Pizza.findOneAndUpdate(
@@ -16,6 +16,7 @@ const commentController = {
             })
             // need to format error message for above statement
             .then(pizzaData => {
+                console.log(pizzaData)
                 if(!pizzaData) {
                     res.status(404).json({message: 'no pizza has this id'})
                     return;
@@ -71,7 +72,7 @@ const commentController = {
           Comment.findOneAndUpdate(
               {_id: params.commentId},
             //   uses MongoDb pull operator to remove specific id
-              {$pull: {replies: {replyId}}},
+              {$pull: {replies: {replyId: params.replyId}}},
               {new: true}
           )
           .then(pizzaData => res.json(pizzaData))
