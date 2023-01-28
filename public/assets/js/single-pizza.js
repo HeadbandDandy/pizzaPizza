@@ -29,8 +29,6 @@ function getOnePizza() {
     .then(printPizza)
     .catch(err => {
       console.log(err);
-      alert('Cannot find a pizza with this id! Taking you back.');
-      window.history.back();
     });
 }
 
